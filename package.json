@@ -1,0 +1,32 @@
+{
+  "name": "meme-slash",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "micro index.js",
+    "start:dev": "micro-dev index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/karl-run/meme-slash.git"
+  },
+  "author": "Karl O.",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/karl-run/meme-slash/issues"
+  },
+  "homepage": "https://github.com/karl-run/meme-slash#readme",
+  "dependencies": {
+    "micro": "^9.3.3"
+  },
+  "prettier": {
+    "semi": false,
+    "trailingComma": "all",
+    "singleQuote": true
+  },
+  "devDependencies": {
+    "micro-dev": "^3.0.0"
+  }
+}
