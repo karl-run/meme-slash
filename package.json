@@ -6,7 +6,7 @@
   "scripts": {
     "start": "micro index.js",
     "start:dev": "micro-dev index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "deploy": "now && now alias && now rm meme-slash --safe --yes"
   },
   "repository": {
     "type": "git",
