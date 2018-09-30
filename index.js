@@ -12,7 +12,7 @@ module.exports = async (request, res) => {
   if (meme != null) {
     let mem = meme
     if (Array.isArray(meme)) {
-      mem = meme[Math.round(Math.random() * meme.length - 1)]
+      mem = meme[Math.round(Math.random() * (meme.length - 1))]
     }
 
     return createImageResponse(mem)
