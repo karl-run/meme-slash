@@ -2,6 +2,10 @@
   "name": "meme-slash",
   "alias": "meme-slash",
   "public": false,
+  "type": "docker",
+  "features": {
+    "cloud": "v2"
+  },
   "env": {
     "MONGO_URL": "@memebot-database"
   }
