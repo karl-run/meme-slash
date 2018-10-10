@@ -3,6 +3,14 @@ const url = require('url')
 const { createImageResponse, createError, createFeedback } = require('./slack')
 const { Meme } = require('./database')
 
+HELP_TEXT = `
+\`\`\`
+  show meme: /meme name
+  add new meme: /meme add name URL
+  add new meme with multiple url /meme add name URL URL URL
+\`\`\`
+`
+
 const addNewMeme = async query => {
   const split = query.split(' ').splice(1)
 
@@ -68,10 +76,16 @@ const getMeme = async query => {
 
     const mem = meme.urls[Math.round(Math.random() * (meme.urls.length - 1))]
 
-    return createImageResponse(mem);
+    return createImageResponse(mem)
   }
 
   return createError('no meme found with name ' + query)
+}
+
+const getHelp = async () => {
+  const feedback = createFeedback(HELP_TEXT)
+
+  return feedback
 }
 
 const handleRootRequest = async (request, res) => {
@@ -85,6 +99,8 @@ const handleRootRequest = async (request, res) => {
 
   if (query.text.startsWith('add')) {
     return addNewMeme(query.text)
+  } else if (query.text.startsWith('help')) {
+    return getHelp()
   } else {
     return getMeme(query.text)
   }
@@ -109,7 +125,7 @@ if (process.env.DEBUG) {
     console.log(
       'correct',
       await module.exports({
-        url: 'blabla?text=carf',
+        url: 'blabla?text=help',
       }),
     )
   })()
