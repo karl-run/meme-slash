@@ -1,11 +1,11 @@
 {
   "name": "meme-slash",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "",
-  "main": "index.js",
+  "main": "./src/index.js",
   "scripts": {
-    "start": "micro index.js",
-    "start:dev": "micro-dev index.js",
+    "start": "micro ./src/index.js",
+    "start:dev": "micro-dev ./src/index.js",
     "deploy": "now && now alias && now rm meme-slash --safe --yes"
   },
   "repository": {
@@ -19,7 +19,8 @@
   },
   "homepage": "https://github.com/karl-run/meme-slash#readme",
   "dependencies": {
-    "micro": "^9.3.3"
+    "micro": "^9.3.3",
+    "mongoose": "^5.3.2"
   },
   "prettier": {
     "semi": false,

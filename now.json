@@ -1,4 +1,8 @@
 {
   "name": "meme-slash",
-  "alias": "meme-slash"
+  "alias": "meme-slash",
+  "public": false,
+  "env": {
+    "MONGO_URL": "@memebot-database"
+  }
 }
