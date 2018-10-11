@@ -18,14 +18,12 @@ const getMeme = async query => {
     const mem = meme.urls[Math.round(Math.random() * (meme.urls.length - 1))]
 
     if (!meme.invokes) {
-        meme.invokes = 1;
+      meme.invokes = 1
     } else {
-        meme.invokes = meme.invokes + 1;
+      meme.invokes = meme.invokes + 1
     }
 
-    meme.save();
-
-    console.log("heh", meme.invokes);
+    meme.save()
 
     return createImageResponse(mem)
   }
