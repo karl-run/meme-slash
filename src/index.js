@@ -9,6 +9,7 @@ HELP_TEXT = `
 
   show meme: /meme name
   list memes: /meme list
+  top list: /meme top
   add new meme: /meme add name URL
   add new meme with multiple url /meme add name URL URL URL
 \`\`\`
@@ -33,6 +34,8 @@ const handleRootRequest = async (request, res) => {
     return meme.add(query.text)
   } else if (query.text.startsWith('list')) {
     return meme.list()
+  } else if (query.text.startsWith('top')) {
+    return meme.top()
   } else if (query.text.startsWith('help')) {
     return getHelp()
   } else {
@@ -47,7 +50,7 @@ if (process.env.DEBUG) {
     console.log(
       'correct',
       await module.exports({
-        url: 'blabla?text=list',
+        url: 'blabla?text=top',
       }),
     )
   })()
