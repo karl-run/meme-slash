@@ -15,6 +15,8 @@ const getTopList = async () => {
       invokes: meme.invokes || 0,
     }))
     .sort((a, b) => b.invokes - a.invokes)
+    .splice(0, 10)
+
   const longest = longestName(counted)
   const postFix = getPostfix()
   const response = counted
@@ -27,7 +29,7 @@ const getTopList = async () => {
     .join(`\n`)
 
   return createFeedback(
-    `\`\`\`woawie here are the memes:\n&&\`\`\``.replace('&&', response),
+    `\`\`\`woawie here top memes:\n&&\`\`\``.replace('&&', response),
   )
 }
 

@@ -50,7 +50,7 @@ if (process.env.DEBUG) {
     console.log(
       'correct',
       await module.exports({
-        url: 'blabla?text=top',
+        url: 'blabla?text=list',
       }),
     )
   })()
