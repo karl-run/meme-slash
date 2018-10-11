@@ -2,7 +2,10 @@ var mongoose = require('mongoose')
 
 mongoose.connect(
   process.env.MONGO_URL,
-  { useNewUrlParser: true },
+  {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+  },
 )
 
 const MemeSchema = new mongoose.Schema({
