@@ -1,7 +1,7 @@
-const url = require('url')
+const parse = require('urlencoded-body-parser')
 
 const meme = require('./meme')
-const { createError, createFeedback } = require('./slack')
+const { createError, createFeedback, asyncResponse } = require('./slack')
 
 HELP_TEXT = `
 \`\`\`
@@ -21,8 +21,8 @@ const getHelp = async () => {
   return feedback
 }
 
-const handleRootRequest = async (request, res) => {
-  const query = url.parse(request.url, true).query
+const handleRootRequest = async (request) => {
+  const query = await parse(request)
 
   if (!query.text) {
     return createError(
@@ -30,16 +30,18 @@ const handleRootRequest = async (request, res) => {
     )
   }
 
+  const replyAsyncily = payload => asyncResponse(query, payload)
+
   if (query.text.startsWith('add')) {
-    return meme.add(query.text)
+    return replyAsyncily(await meme.add(query.text))
   } else if (query.text.startsWith('list')) {
-    return meme.list()
+    return replyAsyncily(await meme.list())
   } else if (query.text.startsWith('top')) {
-    return meme.top()
+    return replyAsyncily(await meme.top())
   } else if (query.text.startsWith('help')) {
     return getHelp()
   } else {
-    return meme.get(query.text)
+    return replyAsyncily(await meme.get(query.text))
   }
 }
 

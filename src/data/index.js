@@ -4,11 +4,15 @@ if (process.env.NODE_ENV !== 'production') {
 
 const mongoose = require('mongoose')
 
+const t1 = new Date()
 mongoose.connect(
   process.env.MONGO_URL,
   {
     useNewUrlParser: true,
     useCreateIndex: true,
+  },
+  () => {
+    console.info(`MONGO: Connecting to Mongo took ${new Date() - t1}ms`)
   },
 )
 
