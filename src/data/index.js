@@ -1,4 +1,8 @@
-var mongoose = require('mongoose')
+if (process.env.NODE_ENV !== 'production') {
+  require('now-env')
+}
+
+const mongoose = require('mongoose')
 
 mongoose.connect(
   process.env.MONGO_URL,
