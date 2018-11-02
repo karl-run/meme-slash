@@ -19,19 +19,25 @@ const createFeedback = message => ({
   text: message,
 })
 
-const asyncResponse = async (request, payload) => {
-  console.info('Responding through response_url')
-  fetch(request.response_url, {
-    method: 'POST',
-    contentType: 'application/json',
-    body: JSON.stringify(payload),
-  })
-    .then(r => {
-      console.info(`Response: ${r.status} ${r.statusText}`)
+const asyncResponse = async (query, asyncPayload) => {
+  console.info('SLACK: Responding through response_url')
+  const respond = async () => {
+    const payload = await asyncPayload
+
+    fetch(query.response_url, {
+      method: 'POST',
+      contentType: 'application/json',
+      body: JSON.stringify(payload),
     })
-    .catch(e => {
-      console.error(e)
-    })
+      .then(r => {
+        console.info(`SLACK: Response: ${r.status} ${r.statusText}`)
+      })
+      .catch(e => {
+        console.error('SLACK: Error', e)
+      })
+  }
+
+  await respond()
 
   return null
 }

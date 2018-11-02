@@ -21,39 +21,60 @@ const getHelp = async () => {
   return feedback
 }
 
-const handleRootRequest = async (request) => {
+const respond = (query, response) => {
+  if (response.async) {
+    console.info('RESPOND: Async query...')
+    return asyncResponse(query, response.payload())
+  } else {
+    console.info('RESPOND: Synchronous query')
+    return response.payload()
+  }
+}
+
+const handleRootRequest = async request => {
   const query = await parse(request)
 
+  console.info(`MAIN: Received query: "${query.text}"`)
+
   if (!query.text) {
+    console.info('MAIN: Empty query')
     return createError(
       'pls meme correctly (add for add, only memename for meme)',
     )
   }
 
-  const replyAsyncily = payload => asyncResponse(query, payload)
+  const responseMap = {
+    add: {
+      payload: () => meme.add(query.text),
+      async: true,
+    },
+    list: {
+      payload: meme.list,
+      async: true,
+    },
+    top: {
+      payload: meme.top,
+      async: true,
+    },
+    help: {
+      payload: getHelp,
+      async: false,
+    },
+    default: {
+      payload: () => meme.get(query.text),
+      async: true,
+    },
+  }
 
-  if (query.text.startsWith('add')) {
-    return replyAsyncily(await meme.add(query.text))
-  } else if (query.text.startsWith('list')) {
-    return replyAsyncily(await meme.list())
-  } else if (query.text.startsWith('top')) {
-    return replyAsyncily(await meme.top())
-  } else if (query.text.startsWith('help')) {
-    return getHelp()
+  responseKey = Object.keys(responseMap).find(key => key.startsWith(query.text))
+
+  if (responseKey != null) {
+    console.info(`MAIN: Found response of type: "${responseKey}"`)
+    return respond(query, responseMap[responseKey])
   } else {
-    return replyAsyncily(await meme.get(query.text))
+    console.info(`MAIN: Found default response"`)
+    return respond(query, responseMap.default)
   }
 }
 
 module.exports = handleRootRequest
-
-if (process.env.DEBUG) {
-  ;(async () => {
-    console.log(
-      'correct',
-      await module.exports({
-        url: 'blabla?text=list',
-      }),
-    )
-  })()
-}

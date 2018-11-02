@@ -10,6 +10,7 @@ const getMeme = async query => {
 
   const name = split[0]
   const meme = await Meme.findOne({ command: name })
+
   if (meme != null) {
     if (meme.urls.length === 0) {
       return createError('Oof ouch owie!!! No URLs created for meme ' + name)
@@ -23,6 +24,7 @@ const getMeme = async query => {
       meme.invokes = meme.invokes + 1
     }
 
+    console.info('GET: Saving meme')
     meme.save()
 
     return createImageResponse(mem)
