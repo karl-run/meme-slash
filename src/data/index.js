@@ -1,7 +1,3 @@
-if (process.env.NODE_ENV !== 'production') {
-  require('now-env')
-}
-
 const mongoose = require('mongoose')
 
 const t1 = new Date()
@@ -17,7 +13,7 @@ mongoose.connect(
       process.exit(1)
     }
 
-    console.info(`MONGO: Connecting to Mongo took ${new Date() - t1}ms`)
+    log.info(`MONGO: Connecting to Mongo took ${new Date() - t1}ms`)
   },
 )
 

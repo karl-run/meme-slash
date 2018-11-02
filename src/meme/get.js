@@ -24,7 +24,7 @@ const getMeme = async query => {
       meme.invokes = meme.invokes + 1
     }
 
-    console.info('GET: Saving meme')
+    log.info('GET: Saving meme')
     meme.save()
 
     return createImageResponse(mem)

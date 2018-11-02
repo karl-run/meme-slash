@@ -20,7 +20,7 @@ const createFeedback = message => ({
 })
 
 const asyncResponse = async (query, asyncPayload) => {
-  console.info('SLACK: Responding through response_url')
+  log.info('SLACK: Responding through response_url')
   const respond = async () => {
     const payload = await asyncPayload
 
@@ -30,7 +30,7 @@ const asyncResponse = async (query, asyncPayload) => {
       body: JSON.stringify(payload),
     })
       .then(r => {
-        console.info(`SLACK: Response: ${r.status} ${r.statusText}`)
+        log.info(`SLACK: Response: ${r.status} ${r.statusText}`)
       })
       .catch(e => {
         console.error('SLACK: Error', e)

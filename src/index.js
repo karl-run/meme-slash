@@ -1,5 +1,8 @@
 const parse = require('urlencoded-body-parser')
 
+require('./config/logging')
+require('./config/dev')
+
 const meme = require('./meme')
 const { createError, createFeedback, asyncResponse } = require('./slack')
 
@@ -23,10 +26,10 @@ const getHelp = async () => {
 
 const respond = (query, response) => {
   if (response.async) {
-    console.info('RESPOND: Async query...')
+    log.info('RESPOND: Async query...')
     return asyncResponse(query, response.payload())
   } else {
-    console.info('RESPOND: Synchronous query')
+    log.info('RESPOND: Synchronous query')
     return response.payload()
   }
 }
@@ -34,10 +37,10 @@ const respond = (query, response) => {
 const handleRootRequest = async request => {
   const query = await parse(request)
 
-  console.info(`MAIN: Received query: "${query.text}"`)
+  log.info(`MAIN: Received query: "${query.text}"`)
 
   if (!query.text) {
-    console.info('MAIN: Empty query')
+    log.info('MAIN: Empty query')
     return createError(
       'pls meme correctly (add for add, only memename for meme)',
     )
@@ -69,10 +72,10 @@ const handleRootRequest = async request => {
   responseKey = Object.keys(responseMap).find(key => key.startsWith(query.text))
 
   if (responseKey != null) {
-    console.info(`MAIN: Found response of type: "${responseKey}"`)
+    log.info(`MAIN: Found response of type: "${responseKey}"`)
     return respond(query, responseMap[responseKey])
   } else {
-    console.info(`MAIN: Found default response"`)
+    log.info(`MAIN: Found default response"`)
     return respond(query, responseMap.default)
   }
 }

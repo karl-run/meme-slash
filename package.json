@@ -22,7 +22,8 @@
     "micro": "^9.3.3",
     "mongoose": "^5.3.2",
     "node-fetch": "^2.2.0",
-    "urlencoded-body-parser": "^2.0.1"
+    "urlencoded-body-parser": "^2.0.1",
+    "winston": "^3.1.0"
   },
   "devDependencies": {
     "micro-dev": "^3.0.0",
