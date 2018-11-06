@@ -81,7 +81,7 @@ const handleRootRequest = async request => {
     },
   }
 
-  responseKey = Object.keys(responseMap).find(key => key.startsWith(query.text))
+  responseKey = Object.keys(responseMap).find(key => query.text.startsWith(key))
 
   if (responseKey != null) {
     log.info(`MAIN: Found response of type: "${responseKey}"`)
