@@ -38,6 +38,8 @@ const respond = (query, response) => {
 const handleMockResponseRequest = async request => {
   const payload = await json(request)
   log.info('Received /mock callback\n' + JSON.stringify(payload, null, '  '))
+
+  return { message: 'OK' }
 }
 
 const handleRootRequest = async request => {

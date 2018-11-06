@@ -37,8 +37,9 @@ const asyncResponse = async (query, asyncPayload) => {
       })
   }
 
-  await respond()
+  respond()
 
+  log.info("SLACK: Returning 200 OK to slack")
   return null
 }
 
