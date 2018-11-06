@@ -9,8 +9,8 @@
 2. `npm run start:dev`
 3. Execute a POST request to `localhost:3000` with body:
 ```
-&text=help
-&response_url=https://hooks.slack.com/commands/1234/5678
+text=help
+&response_url=http://localhost:3000/mock
 ```
 
 ## Deployment

@@ -1,3 +1,4 @@
+const { json } = require('micro')
 const parse = require('urlencoded-body-parser')
 
 require('./config/logging')
@@ -34,7 +35,18 @@ const respond = (query, response) => {
   }
 }
 
+const handleMockResponseRequest = async request => {
+  const payload = await json(request)
+  log.info('Received /mock callback\n' + JSON.stringify(payload, null, '  '))
+}
+
 const handleRootRequest = async request => {
+  if (process.env.NODE_ENV !== 'production') {
+    if (request.url === '/mock') {
+      return handleMockResponseRequest(request)
+    }
+  }
+
   const query = await parse(request)
 
   log.info(`MAIN: Received query: "${query.text}"`)
