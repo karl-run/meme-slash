@@ -45,6 +45,10 @@ const handleMockResponseRequest = async request => {
 const handleRootRequest = async request => {
   if (process.env.NODE_ENV !== 'production') {
     if (request.url === '/mock') {
+      let val;
+      for (let index = 0; index < 10000000000; index++) {
+        val = Math.log(index)
+      }
       return handleMockResponseRequest(request)
     }
   }
@@ -94,4 +98,16 @@ const handleRootRequest = async request => {
   }
 }
 
-module.exports = handleRootRequest
+module.exports = async (req, res) => {
+  const result = await handleRootRequest(req)
+
+  res.writeHead(200, { 'Content-Type': 'application/json' })
+  if (typeof result === 'function') {
+    res.end()
+    // Allow the request to slack to finish before killing the lambda
+    await result()
+  } else {
+    // Normal synchronous request
+    res.end(result && JSON.stringify(result))
+  }
+}

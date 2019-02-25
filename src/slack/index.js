@@ -24,7 +24,9 @@ const asyncResponse = async (query, asyncPayload) => {
   const respond = async () => {
     const payload = await asyncPayload
 
-    fetch(query.response_url, {
+    console.log('querrri')
+
+    return fetch(query.response_url, {
       method: 'POST',
       contentType: 'application/json',
       body: JSON.stringify(payload),
@@ -37,10 +39,9 @@ const asyncResponse = async (query, asyncPayload) => {
       })
   }
 
-  respond()
+  log.info('SLACK: Returning 200 OK to slack')
 
-  log.info("SLACK: Returning 200 OK to slack")
-  return null
+  return respond
 }
 
 module.exports = {

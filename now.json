@@ -1,11 +1,10 @@
 {
   "name": "meme-slash",
   "alias": "meme-slash",
+  "version": 2,
   "public": false,
-  "type": "docker",
-  "features": {
-    "cloud": "v2"
-  },
+  "builds": [{ "src": "src/index.js", "use": "@now/node" }],
+  "routes": [{ "src": "/", "dest": "/src" }],
   "env": {
     "MONGO_URL": "@memebot-database"
   }
